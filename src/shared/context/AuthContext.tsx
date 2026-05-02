@@ -12,7 +12,7 @@ interface AuthContextType {
   isAuthenticated: boolean;
   isLoading: boolean;
   login: (data: AuthResponse) => void;
-  logout: () => void;
+  logout: () => Promise<void>;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -39,7 +39,10 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     setIsLoading(false);
 
     const handleUnauthorized = () => {
-      logout();
+      // Force local cleanup on 401 to prevent infinite loops
+      removeToken();
+      setUser(null);
+      setIsAuthenticated(false);
     };
     window.addEventListener('unauthorized', handleUnauthorized);
     return () => window.removeEventListener('unauthorized', handleUnauthorized);
@@ -51,10 +54,16 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     setIsAuthenticated(true);
   };
 
-  const logout = () => {
-    removeToken();
-    setUser(null);
-    setIsAuthenticated(false);
+  const logout = async () => {
+    try {
+      await authService.logout();
+    } catch (e) {
+      console.error('Logout failed on backend:', e);
+    } finally {
+      removeToken();
+      setUser(null);
+      setIsAuthenticated(false);
+    }
   };
 
   return (

@@ -33,5 +33,9 @@ export const authService = {
   refreshToken: async (): Promise<AuthResponse> => {
     const response = await axiosInstance.post<AuthResponse>('/auth/refresh');
     return response.data;
+  },
+
+  logout: async (): Promise<void> => {
+    await axiosInstance.post('/auth/logout');
   }
 };
