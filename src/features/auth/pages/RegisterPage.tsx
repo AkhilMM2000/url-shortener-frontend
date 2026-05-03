@@ -1,13 +1,14 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../../shared/context/AuthContext';
-import { Mail, Lock, UserPlus, Loader2, Sparkles } from 'lucide-react';
+import { Mail, Lock, UserPlus, Loader2, Sparkles, Eye, EyeOff } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { authService } from '../../../shared/api/auth.service';
 
 export const RegisterPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const {} = useAuth();
@@ -118,13 +119,20 @@ export const RegisterPage = () => {
                   <Lock className="h-5 w-5 text-gray-500 group-focus-within:text-brand-violet transition-colors" />
                 </div>
                 <input
-                  type="password"
+                  type={showPassword ? 'text' : 'password'}
                   required
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="glow-input block w-full pl-11 pr-4 py-3.5 rounded-xl text-white placeholder-gray-600 sm:text-sm"
+                  className="glow-input block w-full pl-11 pr-12 py-3.5 rounded-xl text-white placeholder-gray-600 sm:text-sm"
                   placeholder="••••••••"
                 />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute inset-y-0 right-0 pr-4 flex items-center text-gray-500 hover:text-brand-violet transition-colors"
+                >
+                  {showPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
+                </button>
               </div>
             </div>
 

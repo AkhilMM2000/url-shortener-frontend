@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useAuth } from '../../../shared/context/AuthContext';
-import { Mail, Lock, LogIn, Loader2, Sparkles } from 'lucide-react';
+import { Mail, Lock, LogIn, Loader2, Sparkles, Eye, EyeOff } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { authService } from '../../../shared/api/auth.service';
 
@@ -9,6 +9,7 @@ export const LoginPage = () => {
   const location = useLocation();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const { login } = useAuth();
@@ -118,20 +119,26 @@ export const LoginPage = () => {
             <div className="space-y-2">
               <div className="flex justify-between items-center px-1">
                 <label className="text-xs font-semibold text-gray-400 uppercase tracking-wider">Password</label>
-                <Link to="#" className="text-xs text-brand-cyan/80 hover:text-brand-cyan transition-colors">Forgot?</Link>
               </div>
               <div className="relative group">
                 <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
                   <Lock className="h-5 w-5 text-gray-500 group-focus-within:text-brand-cyan transition-colors" />
                 </div>
                 <input
-                  type="password"
+                  type={showPassword ? 'text' : 'password'}
                   required
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="glow-input block w-full pl-11 pr-4 py-3.5 rounded-xl text-white placeholder-gray-600 sm:text-sm"
+                  className="glow-input block w-full pl-11 pr-12 py-3.5 rounded-xl text-white placeholder-gray-600 sm:text-sm"
                   placeholder="••••••••"
                 />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute inset-y-0 right-0 pr-4 flex items-center text-gray-500 hover:text-brand-cyan transition-colors"
+                >
+                  {showPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
+                </button>
               </div>
             </div>
 
