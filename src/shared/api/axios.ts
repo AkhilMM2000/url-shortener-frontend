@@ -66,7 +66,7 @@ axiosInstance.interceptors.response.use(
         const { accessToken } = data;
 
         // Save new token
-        localStorage.setItem('accessToken', accessToken);
+        localStorage.setItem('access_token', accessToken);
         
         // Update headers for original request and all queued requests
         axiosInstance.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
