@@ -65,16 +65,11 @@ export const DashboardPage = () => {
           animate={{ opacity: 1, y: 0 }}
           className="text-center mb-16"
         >
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-cyan/10 border border-brand-cyan/20 text-brand-cyan text-xs font-bold uppercase tracking-widest mb-6">
-            <LayoutDashboard className="w-3 h-3" />
-            Workspace
-          </div>
+         
           <h1 className="text-4xl sm:text-5xl font-bold text-white tracking-tight mb-4">
             Simplify Your Links.
           </h1>
-          <p className="text-lg text-gray-400 max-w-2xl mx-auto">
-            Experience the next generation of link management with high-performance shortening and premium analytics.
-          </p>
+         
         </motion.div>
 
         <motion.div 
