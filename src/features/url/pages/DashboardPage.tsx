@@ -4,7 +4,7 @@ import { UrlShortenerForm } from '../components/UrlShortenerForm';
 import { UrlResultCard } from '../components/UrlResultCard';
 import { urlService, type CreateShortUrlResponse } from '../../../shared/api/url.service';
 import { motion, AnimatePresence } from 'framer-motion';
-import { LogOut, User as UserIcon, Zap, LayoutDashboard } from 'lucide-react';
+import { LogOut, User as UserIcon, Zap } from 'lucide-react';
 
 export const DashboardPage = () => {
   const { user, logout } = useAuth();
